@@ -13,6 +13,8 @@ There are 3 options to choose from to install balena's CLI:
   Recommended also for scripted installation in CI (continuous integration) environments.
 * [NPM Installation](#npm-installation): recommended for Node.js developers who may be interested
   in integrating the balena CLI in their existing projects or workflow.
+* [Docker Installation](#docker-installation): recommended for Linux users that would like to run the
+  CLI on edge devices or systems where npm installation may not be an option.
 
 Some specific CLI commands have a few extra installation steps: see section [Additional
 Dependencies](#additional-dependencies).
@@ -83,9 +85,7 @@ some additional development tools to be installed first:
     Installing Node via [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md) is recommended.
     When the "system" or "default" Node.js and npm packages are installed with "apt-get" in Linux
     distributions like Ubuntu, users often report permission or compilation errors when running
-    "npm install". This [sample
-    Dockerfile](https://gist.github.com/pdcastro/5d4d96652181e7da685a32caf629dd44) shows the CLI
-    installation steps on an Ubuntu 18.04 base image.
+    "npm install".
 * [Python 2.7](https://www.python.org/), [git](https://git-scm.com/), [make](https://www.gnu.org/software/make/), [g++](https://gcc.gnu.org/)
   * **Linux** and **Windows Subsystem for Linux (WSL):**  
     `sudo apt-get install -y python git make g++`
@@ -148,3 +148,15 @@ To use a remote Docker Engine (daemon) or balenaEngine, specify the remote machi
 port number with the `--dockerHost` and `--dockerPort` command-line options. For more details,
 check `balena help build` or the [online
 reference](https://www.balena.io/docs/reference/cli/#cli-command-reference).
+
+## Docker Installation
+
+If you're working with Linux and the NPM Installation method doesn't suit your needs
+you may want to try deploying the CLI with Docker.
+
+Official images are not available yet but check out [this guide](docker/DOCKER.md) on how
+to build and run your own using our example Dockerfiles.
+
+Note that there are some additional considerations when running the CLI via Docker so pay
+close attention to the [Basic usage](docker/DOCKER.md#basic-usage) and
+[Advanced Usage](docker/DOCKER.md#advanced-usage) sections for examples of different CLI commands.

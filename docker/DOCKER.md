@@ -2,7 +2,36 @@
 
 Docker images with balena CLI and docker-in-docker.
 
-## Available architectures
+## Building (required)
+
+Follow these steps to build your own Docker image with
+the CLI and dependencies pre-installed. These steps have been tested
+on x86_64 workstations, building images for other platforms like ARM.
+
+```bash
+# provide the architecture where you will be running the image
+# (see Available Architectures below)
+export BALENA_ARCH="amd64"
+
+# optionally enable QEMU binfmt if building for other architectures (eg. armv7hf)
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+# the recommended distro is debian, but alpine Dockerfiles are also available
+export BALENA_DISTRO="debian"
+
+# provde a CLI version from https://github.com/balena-io/balena-cli/releases
+export BALENA_CLI_VERSION="12.40.0"
+
+# build and tag an image with docker
+docker build ${BALENA_DISTRO} \
+    --build-arg BALENA_ARCH \
+    --build-arg BALENA_CLI_VERSION \
+    --tag "balenacli-${BALENA_DISTRO}-${BALENA_ARCH}:${BALENA_CLI_VERSION}" \
+    --tag "balenacli-${BALENA_DISTRO}-${BALENA_ARCH}:latest" \
+    --pull
+```
+
+## Available Architectures
 
 - `rpi`
 - `armv7hf`
@@ -16,7 +45,7 @@ Here's a small example of running a single, detached container
 in the background and using `docker exec` to run balena CLI commands.
 
 ```
-$ docker run --detach --privileged --network host --name cli --rm -it balenalib/amd64-debian-balenacli /bin/bash
+$ docker run --detach --privileged --network host --name cli --rm -it balenacli-debian-amd64 /bin/bash
 
 $ docker exec -it cli balena version -a
 balena-cli version "12.38.1"
@@ -56,7 +85,7 @@ elevate permissions unless required.
 ```bash
 # balena scan requires the host network and NET_ADMIN
 docker run --rm -it --cap-add NET_ADMIN --network host \
-    balenalib/amd64-debian-balenacli scan
+    balenacli-debian-amd64 scan
 ```
 
 ### ssh
@@ -68,7 +97,7 @@ docker run --rm -it --cap-add NET_ADMIN --network host \
 ```bash
 # balena ssh requires a private ssh key
 docker run --rm -it -e SSH_PRIVATE_KEY="$(</path/to/priv/key)" \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena ssh f49cefd my-service
@@ -76,7 +105,7 @@ docker run --rm -it -e SSH_PRIVATE_KEY="$(</path/to/priv/key)" \
 
 # OR use your host ssh agent socket with a key already loaded
 docker run --rm -it -e SSH_AUTH_SOCK -v "$(dirname "${SSH_AUTH_SOCK}")" \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena ssh f49cefd my-service
@@ -94,7 +123,7 @@ docker run --rm -it -e SSH_AUTH_SOCK -v "$(dirname "${SSH_AUTH_SOCK}")" \
 # with -v $PWD:$PWD -w $PWD for convenience
 docker run --rm -it --cap-add SYS_ADMIN \
     -v $PWD:$PWD -w $PWD \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena build --application myApp
@@ -106,7 +135,7 @@ docker run --rm -it --cap-add SYS_ADMIN \
 # with -v $PWD:$PWD -w $PWD for convenience
 docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
     -v $PWD:$PWD -w $PWD \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena build --application myApp
@@ -123,7 +152,7 @@ docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
 ```bash
 # docker-in-docker requires SYS_ADMIN
 docker run --rm -it --cap-add SYS_ADMIN \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena os download raspberrypi3 -o raspberry-pi.img
@@ -136,32 +165,11 @@ docker run --rm -it --cap-add SYS_ADMIN \
 # therefore we are using -v $PWD:$PWD -w $PWD so the paths align
 docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock \
     -v $PWD:$PWD -w $PWD \
-    balenalib/amd64-debian-balenacli /bin/bash
+    balenacli-debian-amd64 /bin/bash
 
 > balena login --credentials --email johndoe@gmail.com --password secret
 > balena os download raspberrypi3 -o raspberry-pi.img
 > balena os configure raspberry-pi.img --app MyApp
 > balena preload raspberry-pi.img --app MyApp --commit current
 > exit
-```
-
-## Custom images / contributing
-
-The following script / steps may be used to create custom CLI images or
-to contribute bug reports, fixes or features.
-
-```bash
-# optionally enable qemu for cross-compiling
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-
-export BALENA_ARCH="amd64"
-export BALENA_DISTRO="debian"
-export BALENA_CLI_VERSION="12.38.0"
-
-docker build ${BALENA_DISTRO} \
-    --build-arg BALENA_ARCH \
-    --build-arg BALENA_CLI_VERSION \
-    --tag "balenalib/${BALENA_ARCH}-${BALENA_DISTRO}-balenacli:${BALENA_CLI_VERSION}" \
-    --tag "balenalib/${BALENA_ARCH}-${BALENA_DISTRO}-balenacli:latest" \
-    --pull
 ```
