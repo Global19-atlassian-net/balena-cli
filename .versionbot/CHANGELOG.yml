@@ -1,4 +1,19 @@
 - commits:
+    - subject: 'dockerfiles: initial commit of balenalib dockerfiles'
+      hash: 5236bd544dd29b42a7d611f49880362f4cb80a5a
+      body: |
+        Add dockerfiles for alpine and debian images, based on upstream
+        balenalib/arch-distro-node images.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 12.38.4
+  date: 2021-02-18T14:32:34.492Z
+- commits:
     - subject: Handle 'push' edge case with application access
       hash: a1cf602f6f0f556f46780509be1d61a473c4b469
       body: ''
