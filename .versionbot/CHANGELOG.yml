@@ -1,144 +1,18 @@
 - commits:
-    - subject: Add support for docker-compose dev overlay in local pushes
-      hash: f3d750a0247ae0f272392666d9d243ed65e8e4e6
-      body: ''
-      footer:
-        Change-type: minor
-        change-type: minor
-        Signed-off-by: Scott Lowe <scott@balena.io>
-        signed-off-by: Scott Lowe <scott@balena.io>
-      author: Scott Lowe
-      nested: []
-  version: 12.40.0
-  date: 2021-02-09T12:18:40.185Z
-- commits:
-    - subject: 'build/deploy: fix emulated builds to use fully static qemu binaries'
-      hash: 15fc805f893d330af3c733c40bd2d7ae35a2cb98
+    - subject: 'dockerfiles: initial commit of balenalib dockerfiles'
+      hash: 5236bd544dd29b42a7d611f49880362f4cb80a5a
       body: |
-        Avoid possible situations where the local glibc may not support
-        the required syscalls for arm emulation during build/deploy.
+        Add dockerfiles for alpine and debian images, based on upstream
+        balenalib/arch-distro-node images.
       footer:
         Change-type: patch
         change-type: patch
-        Conneted-to: 'https://github.com/balena-io/qemu/issues/21'
-        conneted-to: 'https://github.com/balena-io/qemu/issues/21'
         Signed-off-by: Kyle Harding <kyle@balena.io>
         signed-off-by: Kyle Harding <kyle@balena.io>
       author: Kyle Harding
-      nested: []
-  version: 12.39.1
-  date: 2021-02-06T15:01:02.577Z
-- commits:
-    - subject: Add command `device local-mode`
-      hash: e47fd0c887f3b8fc30dd15e4ea5528c85296b738
-      body: ''
-      footer:
-        Change-type: minor
-        change-type: minor
-        Resolves: '#1304'
-        resolves: '#1304'
-        Signed-off-by: Scott Lowe <scott@balena.io>
-        signed-off-by: Scott Lowe <scott@balena.io>
-      author: Scott Lowe
-      nested: []
-  version: 12.39.0
-  date: 2021-02-04T17:05:01.299Z
-- commits:
-    - subject: Improve build-time checks (automation/test-lock-deduplicated.sh)
-      hash: 6e0638f3bec0bbe35bd0f132f263be99b44009e1
-      body: ''
-      footer:
-        Change-type: patch
-        change-type: patch
-      author: Paulo Castro
-      nested: []
-  version: 12.38.10
-  date: 2021-02-04T14:25:32.930Z
-- commits:
-    - subject: Modify push to pass app slug to builder
-      hash: e6b85c9cf8784b8b4056795a35ed208570aa4164
-      body: ''
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Scott Lowe <scott@balena.io>
-        signed-off-by: Scott Lowe <scott@balena.io>
-      author: Scott Lowe
-      nested: []
-  version: 12.38.9
-  date: 2021-02-04T09:43:33.008Z
-- commits:
-    - subject: 'build/deploy: Update QEMU to speed up emulated builds'
-      hash: 9636985ee7648dca6967cf35ddd7bb122cfbc65c
-      body: |
-        QEMU v5 has quite a few improvements over v4, and the speed
-        difference when emulating arm is quite noticible.
-
-        We tested this with, and without, our single-core limitation
-        patch and have not been able to reproduce the stability
-        issues we were seeing in v4 so the patch was removed in
-        this release.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Connects-to: 'https://github.com/balena-io/balena-io/issues/2340'
-        connects-to: 'https://github.com/balena-io/balena-io/issues/2340'
-        Signed-off-by: Kyle Harding <kyle@balena.io>
-        signed-off-by: Kyle Harding <kyle@balena.io>
-      author: Kyle Harding
-      nested: []
-  version: 12.38.8
-  date: 2021-01-29T14:30:42.894Z
-- commits:
-    - subject: 'tunnel: Add note re openBalena version compatibility'
-      hash: 941c36525951f41f1c8b5933dc76d64b9e16a205
-      body: ''
-      footer:
-        Change-type: patch
-        change-type: patch
-      author: Paulo Castro
-      nested: []
-  version: 12.38.7
-  date: 2021-01-25T17:37:22.165Z
-- commits:
-    - subject: 'logging: note that the device supervisor version is operative'
-      hash: 53926067caeb8d021b3ff1dae600c3eab4946426
-      body: ''
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Matthew McGinn <matthew@balena.io>
-        signed-off-by: Matthew McGinn <matthew@balena.io>
-      author: Matthew McGinn
-      nested: []
-  version: 12.38.6
-  date: 2021-01-22T21:56:21.475Z
-- commits:
-    - subject: 'tls: Use TLS for tunnel connection'
-      hash: 7ae83d9ce578dc82d8324fa78f3b59c4bc965e4f
-      body: |
-        Switch to using the exposed tunnelUrl and TLS for making
-        tunnels to the device, to improve security.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Rich Bayliss <rich@balena.io>
-        signed-off-by: Rich Bayliss <rich@balena.io>
-      author: Balena CI
-      nested: []
-  version: 12.38.5
-  date: 2021-01-21T23:26:41.306Z
-- commits:
-    - subject: Update supported Node.js version range in package.json (<13.0.0)
-      hash: b363d28664a78f9f3c40ac6bfccb1eea544879c3
-      body: ''
-      footer:
-        Change-type: patch
-        change-type: patch
-      author: Paulo Castro
       nested: []
   version: 12.38.4
-  date: 2021-01-21T16:39:03.644Z
+  date: 2021-02-18T14:30:18.195Z
 - commits:
     - subject: Handle 'push' edge case with application access
       hash: a1cf602f6f0f556f46780509be1d61a473c4b469

@@ -1,6 +1,6 @@
 {
   "name": "balena-cli",
-  "version": "12.40.0",
+  "version": "12.38.4",
   "description": "The official balena Command Line Interface",
   "main": "./build/app.js",
   "homepage": "https://github.com/balena-io/balena-cli",
@@ -84,7 +84,7 @@
   "author": "Juan Cruz Viotti <juan@balena.io>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=10.20.0 <13.0.0"
+    "node": ">=10.20.0"
   },
   "husky": {
     "hooks": {
@@ -203,7 +203,7 @@
     "balena-release": "^3.0.0",
     "balena-sdk": "^15.20.0",
     "balena-semver": "^2.3.0",
-    "balena-settings-client": "^4.0.6",
+    "balena-settings-client": "^4.0.5",
     "balena-settings-storage": "^7.0.0",
     "balena-sync": "^11.0.2",
     "bluebird": "^3.7.2",
