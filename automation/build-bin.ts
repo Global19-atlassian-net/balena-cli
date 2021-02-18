@@ -344,6 +344,20 @@ async function signWindowsInstaller() {
 }
 
 /**
+ * Wait for Apple Installer Notarization to continue
+ */
+async function afterSignHook(): Promise<void> {
+	const appleId = 'accounts+apple@balena.io';
+	const { notarize } = await import('electron-notarize');
+	await notarize({
+		appBundleId: 'io.balena.etcher',
+		appPath: renamedOclifInstallers.darwin,
+		appleId,
+		appleIdPassword: '@keychain:CLI_PASSWORD',
+	});
+}
+
+/**
  * Run the `oclif-dev pack:win` or `pack:macos` command (depending on the value
  * of process.platform) to generate the native installers (which end up under
  * the 'dist' folder). There are some harcoded options such as selecting only
@@ -382,6 +396,7 @@ export async function buildOclifInstaller() {
 		if (process.platform === 'win32') {
 			await signWindowsInstaller();
 		}
+		await afterSignHook(); // File to notarize
 		console.log(`oclif installer build completed`);
 	}
 }
